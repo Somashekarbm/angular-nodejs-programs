@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="loginApp">
+<head>
+ <title>Login Form</title>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body>
+ <div ng-controller="LoginController">
+ <h2>Login Form</h2>
+ <!-- Corrected the form name to use camelCase -->
+ <form name="loginForm" ng-submit="submitForm()">
+ <label>Username:</label>
+ <!-- Added 'name' attribute to input for better form validation -->
+ <input type="text" ng-model="username" name="username" required><br>
+ <!-- Changed the condition to check if username field is dirty and invalid -->
+ <div ng-show="loginForm.username.$dirty && loginForm.username.$invalid">
+ <span ng-show="loginForm.username.$error.required">Username is required.</span>
+ </div>
+ <label>Password:</label>
+ <!-- Added 'name' attribute to input for better form validation -->
+ <input type="password" ng-model="password" name="password" required><br>
+ <!-- Changed the condition to check if password field is dirty and invalid -->
+ <div ng-show="loginForm.password.$dirty && loginForm.password.$invalid">
+ <span ng-show="loginForm.password.$error.required">Password is required.</span>
+ </div>
+ <!-- Disabled the submit button if form is invalid -->
+ <button type="submit" ng-disabled="loginForm.$invalid">Login</button>
+ </form>
+ </div>
+ <script>
+ var app = angular.module('loginApp', []);
+ app.controller('LoginController', function($scope) {
+ $scope.submitForm = function() {
+ // Implement your login logic here
+ console.log('Username:', $scope.username);
+ console.log('Password:', $scope.password);
+ };
+ });
+ </script>
+</body>
+</html>
