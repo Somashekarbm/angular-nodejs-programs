@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="StudentApp">
+
+<head>
+    <title>angularJS filter student name convertor</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="studentctrl">
+    <h1>Student names</h1>
+    <h2>original names</h2>
+    <ul>
+        <li ng-repeat="name in names">
+            {{name}}
+        </li>
+    </ul>
+    <h2>uppercase names</h2>
+    <ul>
+        <li ng-repeat="name in names">
+            {{name | uppercase}}
+        </li>
+    </ul>
+    <script>
+        angular.module('StudentApp', []).controller('studentctrl', function ($scope) {
+            $scope.names = ['anjan', 'soma', 'shrey', 'roops'];
+        })
+    </script>
+</body>
+
+</html>

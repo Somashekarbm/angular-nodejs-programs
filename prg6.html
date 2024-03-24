@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="TodoApp">
+
+<head>
+    <title>ANGULAR JS TODO App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="todoctrl">
+    <h1>TODO LIST</h1>
+    <form ng-submit="addtask()">
+        Task:
+        <input type="text" ng-model="newtask" required />
+        <button type="submit">ADD TASK</button>
+    </form>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="task in tasks">
+                <td>{{task}}</td>
+                <td>
+                    <button ng-click="edittask($index)">edit task</button>
+                    <button ng-click="deletetask($index)">delete task</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- <div ng-if="editingTaskIndex !== null">
+        <h2>Edit Task</h2>
+        Task:
+        <input type="text" ng-model="tasks[editingTaskIndex]" required>
+        <br>
+        <button ng-click="saveEdit()">Save</button>
+        <button ng-click="cancelEdit()">Cancel</button>
+    </div> -->
+    <script>
+        angular.module('TodoApp', []).controller('todoctrl', function ($scope) {
+            $scope.tasks = ['task1', 'task2', 'task3'];
+            $scope.newtask = '';
+            //$scope.editingTaskIndex = null; 
+            $scope.addtask = function () {
+                if ($scope.newtask) {
+                    $scope.tasks.push($scope.newtask);
+                    $scope.newtask = '';
+                }
+            };
+            $scope.edittask = function (index) {
+                var updatedTask = prompt('Enter updated task', $scope.tasks[index]);
+                if (updatedTask !== null) {
+                    if (updatedTask.trim() !== '') {
+                        $scope.tasks.splice(index, 1, updatedTask);
+                    } else {
+                        alert('Please enter the new task details; do not leave it blank!');
+                    }
+                }
+            };
+            $scope.deletetask = function (index) {
+                $scope.tasks.splice(index, 1);
+            }
+        })
+    </script>
+</body>
+
+</html>

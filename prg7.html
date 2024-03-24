@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app="crudApp">
+
+<head>
+    <title>User Management</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="UserController">
+    <h2>User Management</h2>
+    <form ng-submit="adduser()">
+        Name:
+        <input type="text" ng-model="name" required>
+        Age:
+        <input type="number" ng-model="age" required>
+        <button type="submit">ADD USER</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>user</th>
+                <th>age</th>
+                <th>action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in users">
+                <td>{{user.name}}</td>
+                <td>{{user.age}}</td>
+                <td>
+                    <button ng-click="edituser(user)">edit user</button>
+                    <button ng-click="deleteuser(user)">delete user</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        angular.module('crudApp', []).controller('UserController', function ($scope) {
+            $scope.users = [{ name: 'ram', age: 20 }, { name: 'sam', age: 21 }];
+            $scope.adduser = function () {
+                $scope.users.push({ name: $scope.name, age: $scope.age });
+                $scope.name = '';
+                $scope.age = '';
+            };
+            $scope.edituser = function (user) {
+                var index = $scope.users.indexOf(user);
+                var updatedname = prompt('enter updated username', user.name);
+                var updatedage = prompt('enter updated age', user.age);
+                if (updatedname !== null && updatedage !== null) {
+                    var updateduser = { name: updatedname, age: parseInt(updatedage) };
+                    $scope.users.splice(index, 1, updateduser)
+                }
+            };
+            $scope.deleteuser = function (user) {
+                var index = $scope.users.indexOf(user);
+                $scope.users.splice(index, 1);
+            }
+        })
+    </script>
+</body>
+
+</html>

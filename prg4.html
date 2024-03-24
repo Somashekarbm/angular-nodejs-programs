@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="calculation">
+
+<head>
+    <title>ANGULAR JS FACT AND SQUARE</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="factctrl">
+    ENTER A NUMBER:
+    <input type="number" ng-model="num" required />
+    <button ng-click="calfact()">Calculate Facstorial</button>
+    <button ng-click="calsquare()">Calculate Square</button>
+    <p ng-show="factorial!==undefined">FACTORIAL:{{factorial}}</p>
+    <p ng-show="square!==undefined">SQUARE:{{square}}</p>
+    <script>
+        angular.module('calculation', []).controller('factctrl', function ($scope) {
+            $scope.factorial = '';
+            $scope.square = '';
+            $scope.calfact = function () {
+
+                if ($scope.num >= 0) {
+                    $scope.factorial = factorial($scope.num);
+                } else {
+                    $scope.factorial = 'Cannot calculate factorial for negativenumbers';
+                }
+            };
+            $scope.calsquare = function () {
+                $scope.square = $scope.num * $scope.num;
+            };
+            function factorial(n) {
+                if (n == 0 || n == 1) {
+                    return 1;
+                }
+                else {
+                    return n * factorial(n - 1);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
